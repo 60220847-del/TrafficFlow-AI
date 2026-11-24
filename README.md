@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TrafficFlow AI: Sistema Inteligente de Simulación y Optimización del Tráfico Vehicular
 
 **Proyecto Universitario Interdisciplinario**  
@@ -208,3 +209,6 @@ Para defender el proyecto con máxima calificación ante su profesor de **Cálcu
 3. Destaque el cálculo formal de mejora:
    $$\text{Mejora (\%)} = \left(\frac{\text{Valor Inicial} - \text{Valor Optimizado}}{\text{Valor Inicial}}\right) \times 100$$
 4. Concluya demostrando que la optimización matemática logra reducciones significativas en los tiempos de espera y colas vehiculares, validando la aplicación directa de la matemática en la ingeniería.
+=======
+# TrafficFlow-AI
+>>>>>>> b58269dc8965d2376dc1fb38531b1db651f20908
