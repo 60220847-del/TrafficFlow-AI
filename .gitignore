@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+backup_pre_dashboard/
+backup_pre_isometric/
+pruebas/
+*.pdf
+.env
+.streamlit/secrets.toml
