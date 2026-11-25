@@ -332,3 +332,12 @@ class ModeloRecomendadorTraficoIA:
             "fue_restringido": (g1_raw < g_min) or (g1_raw > g_max),
             "modelo_usado": self.tipo_modelo,
         }
+
+    @property
+    def metricas_evaluacion(self) -> Dict[str, float]:
+        """Alias de compatibilidad para self.metricas."""
+        return self.metricas
+
+    def obtener_importancia_variables(self) -> List[Tuple[str, float]]:
+        """Retorna la lista de tuplas (variable, importancia) calculada por el modelo."""
+        return self.importancia_variables

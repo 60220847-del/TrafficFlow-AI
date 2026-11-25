@@ -807,8 +807,18 @@ def renderizar_traffic_intelligence_center(
 
         with col_ia2:
             st.markdown("##### 🌲 Importancia de Variables en el Modelo de Tráfico")
-            if modelo_ia.esta_entrenado and modelo_ia.metricas_evaluacion:
+
+            # Obtener importancias de forma segura tanto si es método como si es atributo directo
+            importancias = []
+            if hasattr(modelo_ia, "obtener_importancia_variables") and callable(modelo_ia.obtener_importancia_variables):
                 importancias = modelo_ia.obtener_importancia_variables()
+            elif hasattr(modelo_ia, "importancia_variables"):
+                importancias = getattr(modelo_ia, "importancia_variables", [])
+
+            metricas_ia = getattr(modelo_ia, "metricas", {}) or getattr(modelo_ia, "metricas_evaluacion", {})
+            esta_entrenado = getattr(modelo_ia, "esta_entrenado", False)
+
+            if esta_entrenado and importancias:
                 nombres = [item[0] for item in importancias]
                 pesos = [item[1] for item in importancias]
 
@@ -820,14 +830,20 @@ def renderizar_traffic_intelligence_center(
                     template="plotly_dark",
                     paper_bgcolor="#0A111E",
                     plot_bgcolor="#0A111E",
-                    height=280,
+                    height=260,
                     margin=dict(l=80, r=20, t=20, b=30),
                     xaxis=dict(title="Importancia Relativa", gridcolor="#1E293B"),
                     yaxis=dict(gridcolor="#1E293B", autorange="reversed")
                 )
                 st.plotly_chart(fig_imp, use_container_width=True)
+
+                if metricas_ia:
+                    r2_val = metricas_ia.get("R2", 0.0)
+                    mae_val = metricas_ia.get("MAE", 0.0)
+                    rmse_val = metricas_ia.get("RMSE", 0.0)
+                    st.caption(f"Métricas de Validación Real: R² = {r2_val:.3f} | MAE = {mae_val:.2f}s | RMSE = {rmse_val:.2f}s")
             else:
-                st.info("El modelo utiliza los pesos analíticos estándar de entrenamiento sintético supervisado.")
+                st.info("El modelo aún no cuenta con pesos calculados. Ejecute una simulación o entrene el modelo en la sección '🤖 Inteligencia Artificial (ML)'.")
 
     # --------------------------------------------------------------------------
     # TAB 4: HISTORIAL Y REGISTRO DE PRUEBAS
